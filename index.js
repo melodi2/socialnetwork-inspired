@@ -4,6 +4,7 @@ const compression = require("compression");
 const db = require("./js/db");
 const bc = require("./js/bc");
 const cookieSession = require("cookie-session");
+const csurf = require("csurf");
 
 app.use(compression());
 
@@ -16,6 +17,13 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
+
+app.use(csurf());
+
+app.use(function(req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 if (process.env.NODE_ENV != "production") {
     app.use(
@@ -37,10 +45,8 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register", (req, res) => {
-    let first = req.body.firstname;
-    let last = req.body.lastname;
-    let email = req.body.email;
-    let pw = req.body.inputPassword;
+    let { first, last, email, pw } = req.body;
+
     if (first != "" && last != "" && email != "" && pw != "") {
         bc.hash(pw)
             .then(hashedPassword => {
@@ -52,25 +58,17 @@ app.post("/register", (req, res) => {
                             req.session.sigId = null;
                         }
                         req.session.userId = rows[0].id;
-                        res.redirect("/profile");
+                        res.redirect("/");
                     })
-                    .catch(() => {
-                        res.render("registration", {
-                            layout: "main",
-                            message: "Please fill out all required fields.",
-                            csrfToken: req.csrfToken()
-                        });
+                    .catch(err => {
+                        console.log(err);
                     });
             })
             .catch(err => {
                 console.log(err);
             });
     } else {
-        res.render("registration", {
-            layout: "main",
-            message: "Please fill out all required fields.",
-            csrfToken: req.csrfToken()
-        });
+        console.log("error in post register");
     }
 });
 

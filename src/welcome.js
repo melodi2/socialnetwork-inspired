@@ -1,5 +1,7 @@
 import React from "react";
+import { HashRouter, Route } from "react-router-dom";
 import Registration from "./registration";
+import Login from "./login";
 
 export default class Welcome extends React.Component {
     constructor(props) {
@@ -11,7 +13,12 @@ export default class Welcome extends React.Component {
             <div>
                 <div>WELCOME</div>
                 <img src="./logo.png" />
-                <Registration />
+                <HashRouter>
+                    <div>
+                        <Route exact path="/" component={Registration} />
+                        <Route path="/login" component={Login} />
+                    </div>
+                </HashRouter>
             </div>
         );
     }
