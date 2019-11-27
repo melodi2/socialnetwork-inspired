@@ -4,7 +4,7 @@ import Welcome from "./welcome";
 
 let elem = <Welcome />;
 
-if (location.pathname != "/welcome") {
+if (location.pathname != "/register") {
     elem = <img src="./logo.png" />;
 }
 

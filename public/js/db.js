@@ -23,3 +23,7 @@ module.exports.addUser = function addUser(
         [firstname, lastname, email, password]
     );
 };
+
+module.exports.getUser = function getUser(email) {
+    return db.query("SELECT password, id FROM users WHERE  email=$1", [email]);
+};

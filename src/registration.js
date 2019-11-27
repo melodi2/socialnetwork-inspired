@@ -10,9 +10,10 @@ export default class Registration extends React.Component {
     submit() {
         axios
             .post("/register", {
+                first: this.state.first,
+                last: this.state.last,
                 email: this.state.email,
-                password: this.state.password,
-                first: this.state.first
+                password: this.state.password
             })
             .then(({ data }) => {
                 if (data.success) {
@@ -28,15 +29,17 @@ export default class Registration extends React.Component {
         this.setState({
             [inputElement.name]: inputElement.value
         });
-
-        //alternatively
-        //this[inputElement.name] = inputElement.value
     }
 
     render() {
         return (
             <div>
-                {this.state.error && <div className="error">Oops!</div>}
+                {this.state.error && (
+                    <div className="error">
+                        Oops! Something went wrong. Please, try again
+                    </div>
+                )}
+                <h1>REGISTRATION</h1>
                 <input
                     name="first"
                     placeholder="firstname"
@@ -58,7 +61,7 @@ export default class Registration extends React.Component {
                     placeholder="password"
                     onChange={e => this.handleChange(e.target)}
                 />
-                <button onClick={() => this.submit()}>Sign Up</button>{" "}
+                <button onClick={() => this.submit()}>Sign Up</button>
                 <Link to="/login">Take me to login</Link>
             </div>
         );
