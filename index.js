@@ -36,14 +36,6 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
-app.get("*", function(req, res) {
-    if (!req.session.userId) {
-        res.redirect("/register");
-    } else {
-        res.sendFile(__dirname + "/index.html");
-    }
-});
-
 app.get("/register", function(req, res) {
     if (req.session.userId) {
         res.redirect("/");
@@ -53,14 +45,15 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register", (req, res) => {
-    let { first, last, email, pw } = req.body;
+    let { first, last, email, password } = req.body;
 
-    if (first != "" && last != "" && email != "" && pw != "") {
-        bc.hash(pw)
+    if (first != "" && last != "" && email != "" && password != "") {
+        bc.hash(password)
             .then(hashedPassword => {
                 // console.log(first, last, email, hashedPassword);
                 db.addUser(first, last, email, hashedPassword)
                     .then(({ rows }) => {
+                        // console.log("rows", rows);
                         req.session.userId = rows[0].id;
                         res.json({
                             success: true
@@ -91,11 +84,11 @@ app.get("/login", function(req, res) {
 
 app.post("/login", (req, res) => {
     console.log("post login server");
-    let { pw, email } = req.body;
-    if (pw != "" && email != "") {
+    let { password, email } = req.body;
+    if (password != "" && email != "") {
         db.getUser(email)
             .then(({ rows }) => {
-                bc.compare(pw, rows[0].password)
+                bc.compare(password, rows[0].password)
                     .then(val => {
                         if (val) {
                             req.session.userId = rows[0].id;
@@ -117,19 +110,22 @@ app.post("/login", (req, res) => {
             })
             .catch(err => {
                 console.log("email or password is wrong", err);
-                res.render("login", {
-                    layout: "main",
-                    message:
-                        "Your email or password is incorrect. Please try again.",
-                    csrfToken: req.csrfToken()
+                res.json({
+                    success: false
                 });
             });
     } else {
-        res.render("login", {
-            layout: "main",
-            message: "Your email or password is incorrect. Please try again.",
-            csrfToken: req.csrfToken()
+        res.json({
+            success: false
         });
+    }
+});
+
+app.get("*", function(req, res) {
+    if (!req.session.userId) {
+        res.redirect("/register");
+    } else {
+        res.sendFile(__dirname + "/index.html");
     }
 });
 

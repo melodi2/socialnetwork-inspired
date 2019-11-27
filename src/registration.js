@@ -8,6 +8,7 @@ export default class Registration extends React.Component {
         this.state = {};
     }
     submit() {
+        console.log("in submit this.state.first", this.state.first);
         axios
             .post("/register", {
                 first: this.state.first,
@@ -16,6 +17,10 @@ export default class Registration extends React.Component {
                 password: this.state.password
             })
             .then(({ data }) => {
+                console.log(
+                    "post request happening, this.state.password",
+                    this.state.password
+                );
                 if (data.success) {
                     location.replace("/");
                 } else {
