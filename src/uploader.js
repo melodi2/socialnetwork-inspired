@@ -10,7 +10,7 @@ export default class Uploader extends React.Component {
     componentDidMount() {
         console.log("uploader mounted");
         console.log("this.props", this.props);
-        this.props.methodInApp("yummy muffin");
+        // this.props.methodInApp();
     }
 
     render() {

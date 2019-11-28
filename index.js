@@ -5,9 +5,31 @@ const db = require("./public/js/db");
 const bc = require("./public/js/bc");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
+const multer = require("multer");
+const s3 = require("./s3");
+const uidSafe = require("uid-safe");
+const path = require("path");
+const { s3Url } = require("./config");
 
 app.use(compression());
 
+const diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
 app.use(express.static("./public"));
 app.use(express.json());
 
@@ -119,6 +141,34 @@ app.post("/login", (req, res) => {
             success: false
         });
     }
+});
+
+app.get("/user", (req, res) => {
+    if (req.session.userId) {
+        db.getInfo(req.session.userId).then(({ rows }) => {
+            res.json({
+                first: rows[0].firstname,
+                last: rows[0].lastname,
+                imgurl: rows[0].imgurl
+            });
+        });
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
+
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    const imageUrl = `${s3Url}${req.file.filename}`;
+    db.addImage(imageUrl)
+        .then(({ rows }) => {
+            console.log("rows", rows[0]);
+            res.json({
+                imgurl: rows[0].imgurl
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
 });
 
 app.get("*", function(req, res) {

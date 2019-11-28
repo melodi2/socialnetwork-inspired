@@ -27,3 +27,11 @@ module.exports.addUser = function addUser(
 module.exports.getUser = function getUser(email) {
     return db.query("SELECT password, id FROM users WHERE  email=$1", [email]);
 };
+
+module.exports.getInfo = function getInfo(id) {
+    return db.query("SELECT * from users WHERE id=$1", [id]);
+};
+
+module.exports.addProfilePic = function addProfilePic(id) {
+    return db.query("UPDATE imgurl from users WHERE id=$1", [id]);
+};

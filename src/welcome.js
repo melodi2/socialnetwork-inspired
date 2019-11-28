@@ -12,7 +12,7 @@ export default class Welcome extends React.Component {
         return (
             <div>
                 <div>WELCOME</div>
-                <img src="./logo.png" />
+                <img src="/img/logo.png" />
                 <HashRouter>
                     <div>
                         <Route exact path="/" component={Registration} />
