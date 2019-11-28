@@ -32,6 +32,6 @@ module.exports.getInfo = function getInfo(id) {
     return db.query("SELECT * from users WHERE id=$1", [id]);
 };
 
-module.exports.addProfilePic = function addProfilePic(id) {
-    return db.query("UPDATE imgurl from users WHERE id=$1", [id]);
+module.exports.addProfilePic = function addProfilePic(id, imageUrl) {
+    return db.query("UPDATE users SET imgurl=$2 WHERE id=$1", [id, imageUrl]);
 };

@@ -10,10 +10,10 @@ export default class App extends React.Component {
             uploaderIsVisible: false
         };
         this.toggleModal = this.toggleModal.bind(this);
+        this.methodInApp = this.methodInApp.bind(this);
     }
 
     componentDidMount() {
-        console.log("app has mounted");
         axios
             .get("/user")
             .then(({ data }) => {
@@ -22,34 +22,19 @@ export default class App extends React.Component {
                     last: data.last,
                     imgurl: data.imgurl
                 });
-                console.log(
-                    "first, last, imgurl",
-                    this.state.first,
-                    this.state.last,
-                    this.state.imgurl
-                );
             })
             .catch(err => {
                 console.log(err);
             });
-        //wants to do request to server
-        //server will do sth with db query
-        //this is where we want to contact the server and ask for info about the user.
-        //axios.get()
-        //when we get the info back, we want to add it to state..
-        //this.setState({})
-        //
     }
 
     toggleModal() {
-        console.log("toggleModal is running");
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible
         });
     }
 
     methodInApp(newImage) {
-        console.log("method in App, newImage", newImage);
         this.setState({
             imgurl: newImage,
             uploaderIsVisible: false

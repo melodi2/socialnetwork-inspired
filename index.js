@@ -159,11 +159,10 @@ app.get("/user", (req, res) => {
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const imageUrl = `${s3Url}${req.file.filename}`;
-    db.addImage(imageUrl)
-        .then(({ rows }) => {
-            console.log("rows", rows[0]);
+    db.addProfilePic(req.session.userId, imageUrl)
+        .then(() => {
             res.json({
-                imgurl: rows[0].imgurl
+                imgurl: imageUrl
             });
         })
         .catch(err => {
