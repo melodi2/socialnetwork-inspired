@@ -8,6 +8,8 @@ export default class BioEditor extends React.Component {
             editingMode: false,
             buttonText: "Edit your Bio..."
         };
+        // this.uploadBio = this.uploadBio.bind(this);
+        // this.toggleEditBio = this.toggleEditBio.bind(this);
     }
 
     componentDidMount() {
@@ -35,7 +37,6 @@ export default class BioEditor extends React.Component {
     }
 
     uploadBio() {
-        console.log("this.state.bio", this.state.bio);
         axios
             .post("/bio", {
                 bio: this.state.bio
@@ -46,6 +47,7 @@ export default class BioEditor extends React.Component {
                     bio: data.bio
                 });
                 this.props.updateBio(this.state.bio);
+                this.toggleEditBio();
             })
             .catch(err => {
                 console.log(err);
@@ -56,7 +58,6 @@ export default class BioEditor extends React.Component {
         if (this.state.editingMode) {
             return (
                 <div>
-                    <h1>I am editing the bio</h1>
                     <textarea
                         name="bio"
                         defaultValue={this.props.bio}
@@ -68,7 +69,7 @@ export default class BioEditor extends React.Component {
         } else {
             return (
                 <div>
-                    <h1>I am the bio</h1>
+                    <h1>{this.props.bio}</h1>
                     <button onClick={() => this.toggleEditBio()}>
                         {this.state.buttonText}
                     </button>

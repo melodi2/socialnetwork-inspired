@@ -149,7 +149,8 @@ app.get("/user", (req, res) => {
             res.json({
                 first: rows[0].firstname,
                 last: rows[0].lastname,
-                imgurl: rows[0].imgurl
+                imgurl: rows[0].imgurl,
+                bio: rows[0].bio
             });
         });
     } else {
@@ -173,7 +174,7 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 app.post("/bio", (req, res) => {
     const { bio } = req.body;
     console.log("req.body", req.body, bio);
-    db.addProfilePic(req.session.userId, bio)
+    db.addBio(req.session.userId, bio)
         .then(() => {
             console.log("in then req.body", req.body, bio);
             res.json({

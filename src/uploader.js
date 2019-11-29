@@ -11,11 +11,6 @@ export default class Uploader extends React.Component {
     componentDidMount() {}
 
     handleChange(inputElement) {
-        // console.log(
-        //     "inputElement.name,inputElement.value",
-        //     inputElement.name,
-        //     inputElement.files[0]
-        // );
         this.setState({
             [inputElement.name]: inputElement.files[0]
         });

@@ -12,6 +12,7 @@ export default class App extends React.Component {
         };
         this.toggleModal = this.toggleModal.bind(this);
         this.methodInApp = this.methodInApp.bind(this);
+        this.updateBio = this.updateBio.bind(this);
     }
 
     componentDidMount() {
@@ -21,7 +22,8 @@ export default class App extends React.Component {
                 this.setState({
                     first: data.first,
                     last: data.last,
-                    imgurl: data.imgurl
+                    imgurl: data.imgurl,
+                    bio: data.bio
                 });
             })
             .catch(err => {
@@ -55,11 +57,12 @@ export default class App extends React.Component {
         return (
             <div>
                 Hello! This is App calling you!
-                <div onClick={this.toggleModal}>
+                <div>
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
                         imgurl={this.state.imgurl}
+                        toggleModal={this.toggleModal}
                         profilePicClass="smallProfilePic"
                     />
                 </div>
@@ -67,8 +70,10 @@ export default class App extends React.Component {
                     first={this.state.first}
                     last={this.state.last}
                     imgurl={this.state.imgurl}
+                    bio={this.state.bio}
                     profilePicClass="bigProfilePic"
                     updateBio={this.updateBio}
+                    toggleModal={this.toggleModal}
                 />
                 {this.state.uploaderIsVisible && (
                     <Uploader methodInApp={this.methodInApp} />

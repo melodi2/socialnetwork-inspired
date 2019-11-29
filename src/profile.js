@@ -12,8 +12,10 @@ export default function Profile(props) {
                 last={props.last}
                 imgurl={props.imgurl}
                 profilePicClass={props.profilePicClass}
+                toggleModal={props.toggleModal}
             />
-            <BioEditor updateBio={props.updateBio} />
+
+            <BioEditor updateBio={props.updateBio} bio={props.bio} />
         </div>
     );
 }
