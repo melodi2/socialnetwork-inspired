@@ -2,6 +2,7 @@ import React from "react";
 import axios from "./axios";
 import ProfilePic from "./profile-pic";
 import Uploader from "./uploader";
+import Profile from "./profile";
 
 export default class App extends React.Component {
     constructor() {
@@ -41,17 +42,34 @@ export default class App extends React.Component {
         });
     }
 
+    updateBio(newBio) {
+        this.setState({
+            bio: newBio
+        });
+    }
+
     render() {
+        if (!this.state.first) {
+            return null;
+        }
         return (
             <div>
                 Hello! This is App calling you!
                 <div onClick={this.toggleModal}>
                     <ProfilePic
-                        firstname={this.state.first}
-                        lastname={this.state.last}
+                        first={this.state.first}
+                        last={this.state.last}
                         imgurl={this.state.imgurl}
+                        profilePicClass="smallProfilePic"
                     />
                 </div>
+                <Profile
+                    first={this.state.first}
+                    last={this.state.last}
+                    imgurl={this.state.imgurl}
+                    profilePicClass="bigProfilePic"
+                    updateBio={this.updateBio}
+                />
                 {this.state.uploaderIsVisible && (
                     <Uploader methodInApp={this.methodInApp} />
                 )}

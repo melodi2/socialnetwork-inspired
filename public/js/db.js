@@ -35,3 +35,7 @@ module.exports.getInfo = function getInfo(id) {
 module.exports.addProfilePic = function addProfilePic(id, imageUrl) {
     return db.query("UPDATE users SET imgurl=$2 WHERE id=$1", [id, imageUrl]);
 };
+
+module.exports.addBio = function addBio(id, bio) {
+    return db.query("UPDATE users SET bio=$2 WHERE id=$1", [id, bio]);
+};

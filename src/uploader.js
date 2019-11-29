@@ -11,11 +11,11 @@ export default class Uploader extends React.Component {
     componentDidMount() {}
 
     handleChange(inputElement) {
-        console.log(
-            "inputElement.name,inputElement.value",
-            inputElement.name,
-            inputElement.files[0]
-        );
+        // console.log(
+        //     "inputElement.name,inputElement.value",
+        //     inputElement.name,
+        //     inputElement.files[0]
+        // );
         this.setState({
             [inputElement.name]: inputElement.files[0]
         });
@@ -40,7 +40,7 @@ export default class Uploader extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="uploadModal">
                 <h3>Uploader</h3>
                 <input
                     type="file"

@@ -170,6 +170,21 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         });
 });
 
+app.post("/bio", (req, res) => {
+    const { bio } = req.body;
+    console.log("req.body", req.body, bio);
+    db.addProfilePic(req.session.userId, bio)
+        .then(() => {
+            console.log("in then req.body", req.body, bio);
+            res.json({
+                bio: bio
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
 app.get("*", function(req, res) {
     if (!req.session.userId) {
         res.redirect("/register");
