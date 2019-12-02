@@ -26,7 +26,7 @@ export default class Uploader extends React.Component {
                 this.setState({
                     imgurl: data.imgurl
                 });
-                this.props.methodInApp(this.state.imgurl);
+                this.props.updateImage(this.state.imgurl);
             })
             .catch(err => {
                 console.log(err);

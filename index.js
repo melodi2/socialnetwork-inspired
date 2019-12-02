@@ -143,14 +143,32 @@ app.post("/login", (req, res) => {
     }
 });
 
-app.get("/user", (req, res) => {
+app.get("/user.json", (req, res) => {
     if (req.session.userId) {
         db.getInfo(req.session.userId).then(({ rows }) => {
             res.json({
                 first: rows[0].firstname,
                 last: rows[0].lastname,
                 imgurl: rows[0].imgurl,
-                bio: rows[0].bio
+                bio: rows[0].bio,
+                id: rows[0].id
+            });
+        });
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
+
+app.get("/user.json/:id", (req, res) => {
+    console.log("req.params.id", req.params.id);
+    if (req.session.userId) {
+        db.getInfo(req.params.id).then(({ rows }) => {
+            res.json({
+                first: rows[0].firstname,
+                last: rows[0].lastname,
+                imgurl: rows[0].imgurl,
+                bio: rows[0].bio,
+                id: rows[0].id
             });
         });
     } else {
@@ -173,10 +191,8 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
 app.post("/bio", (req, res) => {
     const { bio } = req.body;
-    console.log("req.body", req.body, bio);
     db.addBio(req.session.userId, bio)
         .then(() => {
-            console.log("in then req.body", req.body, bio);
             res.json({
                 bio: bio
             });

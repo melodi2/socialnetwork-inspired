@@ -8,22 +8,10 @@ export default class BioEditor extends React.Component {
             editingMode: false,
             buttonText: "Edit your Bio..."
         };
-        // this.uploadBio = this.uploadBio.bind(this);
-        // this.toggleEditBio = this.toggleEditBio.bind(this);
     }
 
-    componentDidMount() {
-        console.log("props in Bioeditor", this.props);
-        if (!this.props.bio) {
-            console.log("no bio......");
-            this.setState(
-                {
-                    buttonText: "Add your bio"
-                },
-                () => console.log("this.state", this.state)
-            );
-        }
-    }
+    componentDidMount() {}
+
     toggleEditBio() {
         this.setState({
             editingMode: !this.state.editingMode
@@ -55,6 +43,10 @@ export default class BioEditor extends React.Component {
     }
 
     render() {
+        let buttonText;
+        this.props.bio
+            ? (buttonText = "Edit your bio")
+            : (buttonText = "Add your bio");
         if (this.state.editingMode) {
             return (
                 <div>
@@ -71,7 +63,7 @@ export default class BioEditor extends React.Component {
                 <div>
                     <h1>{this.props.bio}</h1>
                     <button onClick={() => this.toggleEditBio()}>
-                        {this.state.buttonText}
+                        {buttonText}
                     </button>
                 </div>
             );

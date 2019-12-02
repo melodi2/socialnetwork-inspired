@@ -8,16 +8,29 @@ main {
     flex-direction: column;
 }
 
-.smallProfilePic {
+.logo {
     width: 200px;
     height: 100px;
+    object-fit: fill;
+}
+
+.headerPic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.smallProfilePic {
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     object-position: center;
+    border-radius: 50%;
 }
 
 .bigProfilePic {
-    width: 600px;
-    height: 300px;
+    width: 300px;
+    height: 500px;
     object-fit: cover;
     object-position: center;
 }

@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "./axios";
+import { BrowserRouter, Route } from "react-router-dom";
 import ProfilePic from "./profile-pic";
 import Uploader from "./uploader";
 import Profile from "./profile";
+import { OtherProfile } from "./otherprofile";
 
 export default class App extends React.Component {
     constructor() {
@@ -11,19 +13,20 @@ export default class App extends React.Component {
             uploaderIsVisible: false
         };
         this.toggleModal = this.toggleModal.bind(this);
-        this.methodInApp = this.methodInApp.bind(this);
+        this.updateImage = this.updateImage.bind(this);
         this.updateBio = this.updateBio.bind(this);
     }
 
     componentDidMount() {
         axios
-            .get("/user")
+            .get("/user.json")
             .then(({ data }) => {
                 this.setState({
                     first: data.first,
                     last: data.last,
                     imgurl: data.imgurl,
-                    bio: data.bio
+                    bio: data.bio,
+                    id: data.id
                 });
             })
             .catch(err => {
@@ -37,7 +40,7 @@ export default class App extends React.Component {
         });
     }
 
-    methodInApp(newImage) {
+    updateImage(newImage) {
         this.setState({
             imgurl: newImage,
             uploaderIsVisible: false
@@ -56,27 +59,39 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                Hello! This is App calling you!
-                <div>
-                    <ProfilePic
-                        first={this.state.first}
-                        last={this.state.last}
-                        imgurl={this.state.imgurl}
-                        toggleModal={this.toggleModal}
-                        profilePicClass="smallProfilePic"
-                    />
-                </div>
-                <Profile
-                    first={this.state.first}
-                    last={this.state.last}
-                    imgurl={this.state.imgurl}
-                    bio={this.state.bio}
-                    profilePicClass="bigProfilePic"
-                    updateBio={this.updateBio}
-                    toggleModal={this.toggleModal}
-                />
+                <BrowserRouter>
+                    <div>
+                        <div className="headerPic">
+                            <img className="logo" src="/img/logo.png" />
+                            <ProfilePic
+                                first={this.state.first}
+                                last={this.state.last}
+                                imgurl={this.state.imgurl}
+                                toggleModal={this.toggleModal}
+                                profilePicClass="smallProfilePic"
+                            />
+                        </div>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Profile
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    imgurl={this.state.imgurl}
+                                    profilePicClass="bigProfilePic"
+                                    bio={this.state.bio}
+                                    updateBio={this.updateBio}
+                                    toggleModal={this.toggleModal}
+                                />
+                            )}
+                        />
+                        <Route path="/user/:id" component={OtherProfile} />
+                    </div>
+                </BrowserRouter>
+
                 {this.state.uploaderIsVisible && (
-                    <Uploader methodInApp={this.methodInApp} />
+                    <Uploader updateImage={this.updateImage} />
                 )}
             </div>
         );
