@@ -16,19 +16,21 @@ export class OtherProfile extends React.Component {
         //and send back information about the currently logged in user
         //figure out if the other users id is the same as the logged in users
         //if it is then send them away...
-        if (this.props.match.params.id == 30) {
-            this.props.history.push("/");
-        }
         axios
             .get(`/user.json/${this.props.match.params.id}`)
             .then(({ data }) => {
+                console.log("data", data);
                 this.setState({
                     first: data.first,
                     last: data.last,
                     imgurl: data.imgurl,
                     bio: data.bio,
-                    id: data.id
+                    id: data.id,
+                    userid: data.userid
                 });
+                if (this.props.match.params.id == this.state.userid) {
+                    this.props.history.push("/");
+                }
             })
             .catch(err => console.log(err));
     }
@@ -36,12 +38,19 @@ export class OtherProfile extends React.Component {
     getOtherProfile() {}
 
     render() {
+        if (!this.state.first) {
+            return <h1>This user does not exist!</h1>;
+        }
         return (
             <div>
                 <h1>
-                    Hello from other profile {this.state.first}
-                    {this.state.last}
+                    This is the profile of {this.state.first} {this.state.last}
                 </h1>
+                <img
+                    src={this.state.imgurl}
+                    alt={this.state.first + " " + this.state.last}
+                />
+                <p>{this.state.bio}</p>
             </div>
         );
     }

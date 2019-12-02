@@ -168,7 +168,8 @@ app.get("/user.json/:id", (req, res) => {
                 last: rows[0].lastname,
                 imgurl: rows[0].imgurl,
                 bio: rows[0].bio,
-                id: rows[0].id
+                id: rows[0].id,
+                userid: req.session.userId
             });
         });
     } else {
