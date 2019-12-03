@@ -203,6 +203,18 @@ app.post("/bio", (req, res) => {
         });
 });
 
+app.get("/users/:inputname", (req, res) => {
+    const { inputname } = req.params;
+    db.findUser(inputname)
+        .then(({ rows }) => {
+            console.log("rows", rows);
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
 app.get("*", function(req, res) {
     if (!req.session.userId) {
         res.redirect("/register");

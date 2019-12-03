@@ -5,6 +5,7 @@ import ProfilePic from "./profile-pic";
 import Uploader from "./uploader";
 import Profile from "./profile";
 import { OtherProfile } from "./otherprofile";
+import { FindPeople } from "./find-people";
 
 export default class App extends React.Component {
     constructor() {
@@ -90,13 +91,13 @@ export default class App extends React.Component {
                             path="/user/:id"
                             render={props => (
                                 <OtherProfile
-                                    userid={this.state.id}
                                     key={props.match.url}
                                     match={props.match}
                                     history={props.history}
                                 />
                             )}
                         />
+                        <Route path="/findpeople" component={FindPeople} />
                     </div>
                 </BrowserRouter>
 
