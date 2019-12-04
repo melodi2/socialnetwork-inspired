@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import { Friendshipbutton } from "./friendship-button";
 
 export class OtherProfile extends React.Component {
     constructor() {
@@ -17,7 +18,7 @@ export class OtherProfile extends React.Component {
         //figure out if the other users id is the same as the logged in users
         //if it is then send them away...
         axios
-            .get(`/user.json/${this.props.match.params.id}`)
+            .get(`/user/${this.props.match.params.id}.json`)
             .then(({ data }) => {
                 console.log("data", data);
                 this.setState({
@@ -50,6 +51,7 @@ export class OtherProfile extends React.Component {
                     src={this.state.imgurl}
                     alt={this.state.first + " " + this.state.last}
                 />
+                <Friendshipbutton otherId={this.props.match.params.id} />
                 <p>{this.state.bio}</p>
             </div>
         );

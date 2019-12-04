@@ -159,7 +159,7 @@ app.get("/user.json", (req, res) => {
     }
 });
 
-app.get("/user.json/:id", (req, res) => {
+app.get("/user/:id.json", (req, res) => {
     console.log("req.params.id", req.params.id);
     if (req.session.userId) {
         db.getInfo(req.params.id).then(({ rows }) => {
@@ -203,7 +203,7 @@ app.post("/bio", (req, res) => {
         });
 });
 
-app.get("/users/:inputname", (req, res) => {
+app.get("/users/:inputname.json", (req, res) => {
     const { inputname } = req.params;
     db.findUser(inputname)
         .then(({ rows }) => {
@@ -213,6 +213,23 @@ app.get("/users/:inputname", (req, res) => {
         .catch(err => {
             console.log(err);
         });
+});
+
+app.get("/users/.json", (req, res) => {
+    console.log("recent user");
+    db.findRecentUser()
+        .then(({ rows }) => {
+            console.log("rows", rows);
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+app.get("/friendshipstatus/:id", (req, res) => {
+    const { id } = req.params;
+    res.json({ buttontext: "yes I wanna be your friend" });
 });
 
 app.get("*", function(req, res) {

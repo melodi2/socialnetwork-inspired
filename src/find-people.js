@@ -2,35 +2,53 @@ import React, { useState, useEffect } from "react";
 import axios from "./axios";
 
 export function FindPeople() {
-    const [user, setUser] = useState();
+    const [users, setUsers] = useState([]);
+    const [recentUsers, setRecentUsers] = useState([]);
     const [input, setInput] = useState("");
 
     useEffect(() => {
+        let ignore = false;
         (async () => {
-            // let ignore = false;
-            const { data } = await axios.get(`/users/` + input);
+            const { data } = await axios.get(`/users/` + input + ".json");
             console.log("data", data);
 
-            // if (!ignore) {
-            setUser(data);
-            // }
+            if (!ignore) {
+                if (input == "") {
+                    setRecentUsers(data);
+                    setUsers([]);
+                } else {
+                    setUsers(data);
+                }
+            }
         })();
-        // return () => {
-        //     let ignore = true;
-        // };
+        return () => (ignore = true);
     }, [input]);
 
-    console.log("user", user);
-    return (
-        <div>
-            <p>Hello</p>
-            {user.map(c => (
-                <div key={c}>{c}</div>
-            ))}
-            <input
-                onChange={e => setInput(e.target.value)}
-                defaultValue={input}
-            />
-        </div>
-    );
+    console.log("user", users);
+    if (recentUsers) {
+        return (
+            <div>
+                <h3>See who just joined!</h3>
+                {recentUsers.map(u => (
+                    <div key={u.id}>
+                        {u.firstname}
+                        <img className="smallPic" src={u.imgurl} />
+                    </div>
+                ))}
+                <h3>Do you want to find someone particular?</h3>
+                <input
+                    onChange={e => setInput(e.target.value)}
+                    defaultValue={input}
+                />
+                {users.map(u => (
+                    <div key={u.id}>
+                        {u.firstname}
+                        <img className="smallPic" src={u.imgurl} />
+                    </div>
+                ))}
+            </div>
+        );
+    } else {
+        return <p>Hello</p>;
+    }
 }

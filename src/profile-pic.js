@@ -10,7 +10,6 @@ export default function ProfilePic({
     imgurl = imgurl || "/img/default.jpeg";
     return (
         <div>
-            <h2>I am the Profile picture! {first}</h2>
             <img
                 onClick={toggleModal}
                 className={profilePicClass}

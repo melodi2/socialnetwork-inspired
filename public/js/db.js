@@ -40,9 +40,13 @@ module.exports.addBio = function addBio(id, bio) {
     return db.query("UPDATE users SET bio=$2 WHERE id=$1", [id, bio]);
 };
 
-module.exports.findUser = function findUser(first, last) {
+module.exports.findUser = function findUser(name) {
     return db.query(
-        `SELECT * FROM users WHERE firstname ILIKE $1 OR lastname ILIKE $2 LIMIT 4;`,
-        [first + "%", last + "%"]
+        `SELECT * FROM users WHERE firstname ILIKE $1 OR lastname ILIKE $1 LIMIT 4;`,
+        [name + "%"]
     );
+};
+
+module.exports.findRecentUser = function findRecentUser() {
+    return db.query(`SELECT * FROM users ORDER BY id DESC LIMIT 4;`);
 };

@@ -8,6 +8,9 @@ main {
     flex-direction: column;
 }
 
+.btn {
+    font-size: 15px;
+}
 .logo {
     width: 200px;
     height: 100px;
@@ -21,8 +24,8 @@ main {
 }
 
 .smallProfilePic {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     object-position: center;
     border-radius: 50%;
@@ -31,6 +34,13 @@ main {
 .bigProfilePic {
     width: 300px;
     height: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.smallPic {
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     object-position: center;
 }
