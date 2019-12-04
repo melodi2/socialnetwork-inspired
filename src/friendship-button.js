@@ -7,15 +7,24 @@ export function Friendshipbutton({ otherId }) {
 
     useEffect(() => {
         console.log("button mounted", otherId);
-        axios.get("/friendshipstatus/" + otherId).then(({ res }) => {
-            console.log("res: ", res);
-            setButtonText(res.buttontext);
-        });
-    });
+        axios
+            .get("/friendshipstatus/" + otherId)
+            .then(res => {
+                console.log("res: ", res.data);
+                setButtonText(res.data.buttontext);
+            })
+            .catch(err => console.log(err));
+    }, []);
+
+    function submit() {
+        console.log("clicked on the button", buttonText);
+    }
 
     return (
         <div>
-            <button className="btn">{buttonText}</button>
+            <button className="btn" onClick={submit}>
+                {buttonText}
+            </button>
         </div>
     );
 }

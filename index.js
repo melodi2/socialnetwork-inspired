@@ -229,7 +229,19 @@ app.get("/users/.json", (req, res) => {
 
 app.get("/friendshipstatus/:id", (req, res) => {
     const { id } = req.params;
-    res.json({ buttontext: "yes I wanna be your friend" });
+    const receiverId = id;
+    const senderId = 2;
+    db.checkFriendship(receiverId, senderId)
+        .then(({ rows }) => {
+            if (rows.length == 0) {
+                res.json({ buttontext: " Make a Request" });
+            } else {
+                res.json({ buttontext: "you made a Request" });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
 });
 
 app.get("*", function(req, res) {

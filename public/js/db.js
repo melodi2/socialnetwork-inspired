@@ -50,3 +50,15 @@ module.exports.findUser = function findUser(name) {
 module.exports.findRecentUser = function findRecentUser() {
     return db.query(`SELECT * FROM users ORDER BY id DESC LIMIT 4;`);
 };
+
+module.exports.checkFriendship = function checkFriendship(
+    receiverId,
+    senderId
+) {
+    return db.query(
+        `SELECT * FROM friendships
+    WHERE (receiver_id = $1 AND sender_id = $2)
+    OR (receiver_id = $2 AND sender_id = $1);`,
+        [receiverId, senderId]
+    );
+};
