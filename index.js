@@ -230,13 +230,61 @@ app.get("/users/.json", (req, res) => {
 app.get("/friendshipstatus/:id", (req, res) => {
     const { id } = req.params;
     const receiverId = id;
-    const senderId = 2;
+    const senderId = req.session.userId;
     db.checkFriendship(receiverId, senderId)
         .then(({ rows }) => {
             if (rows.length == 0) {
                 res.json({ buttontext: " Make a Request" });
+            } else if (rows[0].accepted) {
+                res.json({ buttontext: "Remove Friend" });
             } else {
-                res.json({ buttontext: "you made a Request" });
+                if (rows[0].sender_id == senderId) {
+                    res.json({ buttontext: "Cancel Request" });
+                } else {
+                    res.json({ buttontext: "Accept Request" });
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+app.post("/friendshipstatus/:id", (req, res) => {
+    const { id } = req.params;
+    const receiverId = id;
+    const senderId = req.session.userId;
+
+    db.checkFriendship(receiverId, senderId)
+        .then(({ rows }) => {
+            if (rows.length == 0) {
+                db.sendFriendshipRequest(receiverId, senderId)
+                    .then(() => {
+                        console.log("friendship request row is inserted");
+                    })
+                    .catch(err => console.log(err));
+            } else if (rows[0].accepted) {
+                db.endFriendshipRequest(rows[0].id)
+                    .then(() => {
+                        console.log("friendship row is deleted");
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                if (rows[0].sender_id == senderId) {
+                    db.endFriendshipRequest(rows[0].id)
+                        .then(() => {
+                            console.log(
+                                "friendship request row is deleted by you"
+                            );
+                        })
+                        .catch(err => console.log(err));
+                } else {
+                    db.acceptFriendshipRequest(rows[0].id)
+                        .then(() => {
+                            console.log("friendship row is accepted by you");
+                        })
+                        .catch(err => console.log(err));
+                }
             }
         })
         .catch(err => {

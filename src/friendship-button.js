@@ -10,14 +10,20 @@ export function Friendshipbutton({ otherId }) {
         axios
             .get("/friendshipstatus/" + otherId)
             .then(res => {
-                console.log("res: ", res.data);
+                console.log("buttontext get res: ", res.data);
                 setButtonText(res.data.buttontext);
             })
             .catch(err => console.log(err));
-    }, []);
+    });
 
     function submit() {
         console.log("clicked on the button", buttonText);
+        axios
+            .post("/friendshipstatus/" + otherId)
+            .then(res => {
+                console.log("submit post axios res: ", res.data);
+            })
+            .catch(err => console.log(err));
     }
 
     return (

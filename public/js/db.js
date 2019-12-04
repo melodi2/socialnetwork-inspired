@@ -62,3 +62,24 @@ module.exports.checkFriendship = function checkFriendship(
         [receiverId, senderId]
     );
 };
+
+module.exports.sendFriendshipRequest = function sendFriendshipRequest(
+    receiverId,
+    senderId
+) {
+    return db.query(
+        `INSERT INTO friendships (receiver_id, sender_id)
+    VALUES ($1, $2);`,
+        [receiverId, senderId]
+    );
+};
+
+module.exports.endFriendshipRequest = function endFriendshipRequest(id) {
+    return db.query(`DELETE FROM friendships WHERE id=$1;`, [id]);
+};
+
+module.exports.acceptFriendshipRequest = function acceptFriendshipRequest(id) {
+    return db.query(`UPDATE friendships SET accepted = true WHERE id=$1;`, [
+        id
+    ]);
+};
