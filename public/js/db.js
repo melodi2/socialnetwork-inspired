@@ -83,3 +83,14 @@ module.exports.acceptFriendshipRequest = function acceptFriendshipRequest(id) {
         id
     ]);
 };
+
+module.exports.checkFriends = function checkFriends() {
+    return db.query(`
+  SELECT users.id, first, last, image, accepted
+  FROM friendships
+  JOIN users
+  ON (accepted = false AND recipient_id = $1 AND requester_id = users.id)
+  OR (accepted = true AND recipient_id = $1 AND requester_id = users.id)
+  OR (accepted = false AND requester_id = $1 AND recipient_id = users.id)
+`);
+};
