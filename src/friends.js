@@ -8,12 +8,19 @@ export function Friends() {
     const friends = useSelector(state => {
         console.log("in function passed to useSelector", state);
         return (
-            state.friends &&
-            state.friends.filter(elem => elem.accepted == false)
+            state.friends && state.friends.filter(elem => elem.accepted == true)
         );
     });
 
     useEffect(() => {
         dispatch(receiveFriends());
     }, []);
+
+    return (
+        <div>
+            {" "}
+            Your Friends:
+            {friends && friends.map(el => el.firstname)}
+        </div>
+    );
 }

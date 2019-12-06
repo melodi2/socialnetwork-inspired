@@ -5,6 +5,6 @@ export async function receiveFriends() {
     console.log("data", data);
     return {
         type: "RECEIVE_FRIENDS",
-        friends: data.friends
+        friends: data
     };
 }

@@ -1,10 +1,12 @@
 export default function reducer(state = {}, action) {
-    console.log("state: ", state);
+    // console.log("state: ", state);
     if (action.type == "RECEIVE_FRIENDS") {
         state = {
             ...state,
             friends: action.friends
         };
     }
+    console.log("after reducer state: ", state);
+
     return state;
 }
