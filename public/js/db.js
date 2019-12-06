@@ -84,13 +84,16 @@ module.exports.acceptFriendshipRequest = function acceptFriendshipRequest(id) {
     ]);
 };
 
-module.exports.checkFriends = function checkFriends() {
-    return db.query(`
-  SELECT users.id, first, last, image, accepted
+module.exports.checkFriends = function checkFriends(id) {
+    return db.query(
+        `
+  SELECT users.id, firstname, lastname, imgurl, accepted
   FROM friendships
   JOIN users
-  ON (accepted = false AND recipient_id = $1 AND requester_id = users.id)
-  OR (accepted = true AND recipient_id = $1 AND requester_id = users.id)
-  OR (accepted = false AND requester_id = $1 AND recipient_id = users.id)
-`);
+  ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
+  OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
+  OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)
+`,
+        [id]
+    );
 };

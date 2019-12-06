@@ -296,6 +296,15 @@ app.post("/friendshipstatus/:id", (req, res) => {
         });
 });
 
+app.get("/friends.json", (req, res) => {
+    const id = req.session.userId;
+    db.checkFriends(id)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch(err => console.log(err));
+});
+
 app.get("*", function(req, res) {
     if (!req.session.userId) {
         res.redirect("/register");
