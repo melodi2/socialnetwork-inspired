@@ -8,10 +8,14 @@ export default function reducer(state = {}, action) {
     }
     if (action.type == "ACCEPT_FRIENDS") {
         const friends = [
-            ...state.friends.filter(friend => action.id == friend.id),
-            ...state.friends
+            ...state.friends.map(friend => {
+                if (action.id == friend.id) {
+                    friend.accepted = action.accepted;
+                    return friend;
+                } else return friend;
+            })
         ];
-        friends[0].accepted = action.accepted;
+
         console.log("friends in accept", friends);
 
         state = {
