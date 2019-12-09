@@ -9,18 +9,11 @@ export class OtherProfile extends React.Component {
     }
 
     componentDidMount() {
-        console.log("this.props.match: ", this.props.match);
-        //figure out the user id of the user...
-        console.log("this.props.match.params.id: ", this.props.match.params.id);
-        //make a request to the server, passing along this.props.match.params.
-        //the server needs to look up the data about that user
-        //and send back information about the currently logged in user
-        //figure out if the other users id is the same as the logged in users
-        //if it is then send them away...
+        // console.log("this.props.match: ", this.props.match);
+        // console.log("this.props.match.params.id: ", this.props.match.params.id);
         axios
             .get(`/user/${this.props.match.params.id}.json`)
             .then(({ data }) => {
-                console.log("data", data);
                 this.setState({
                     first: data.first,
                     last: data.last,
@@ -43,9 +36,9 @@ export class OtherProfile extends React.Component {
             return <h1>This user does not exist!</h1>;
         }
         return (
-            <div>
+            <div className="form">
                 <h1>
-                    This is the profile of {this.state.first} {this.state.last}
+                    {this.state.first} {this.state.last}
                 </h1>
                 <img
                     src={this.state.imgurl}

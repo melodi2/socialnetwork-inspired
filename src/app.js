@@ -7,6 +7,7 @@ import Profile from "./profile";
 import { OtherProfile } from "./otherprofile";
 import { FindPeople } from "./find-people";
 import { Friends } from "./friends";
+import { Link } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor() {
@@ -65,6 +66,9 @@ export default class App extends React.Component {
                     <div>
                         <div className="header">
                             <img className="logo" src="/img/logo.png" />
+                            <Link to="/friends">Friends</Link>
+                            <Link to="/findpeople">Find People</Link>
+                            <Link to="/">Profile</Link>
                             <ProfilePic
                                 first={this.state.first}
                                 last={this.state.last}

@@ -27,12 +27,12 @@ export function FindPeople() {
     console.log("user", users);
     if (recentUsers) {
         return (
-            <div>
+            <div className="form">
                 <h3>See who just joined!</h3>
                 {recentUsers.map(u => (
                     <div key={u.id}>
-                        {u.firstname}
                         <img className="smallPic" src={u.imgurl} />
+                        {u.firstname}
                     </div>
                 ))}
                 <h3>Do you want to find someone particular?</h3>

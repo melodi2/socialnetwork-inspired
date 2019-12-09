@@ -5,7 +5,7 @@ import BioEditor from "./bio-editor";
 export default function Profile(props) {
     console.log("props in profile", props);
     return (
-        <div>
+        <div className="form">
             <h2>
                 {props.first} {props.last}
             </h2>

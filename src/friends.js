@@ -34,9 +34,10 @@ export function Friends() {
                             {el.firstname}
 
                             <button
+                                className="redBtn"
                                 onClick={e => dispatch(deleteFriend(el.id))}
                             >
-                                Delete
+                                Unfriend
                             </button>
                         </div>
                     ))}
@@ -52,6 +53,7 @@ export function Friends() {
                             {el.firstname}
 
                             <button
+                                className="greenBtn"
                                 onClick={e => dispatch(acceptFriend(el.id))}
                             >
                                 Accept

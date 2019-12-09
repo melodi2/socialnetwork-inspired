@@ -17,7 +17,42 @@ input {
     font-size: 15px;
 }
 
+textarea {
+    width: 300px;
+    height: auto;
+    resize: none;
+}
+
 button {
+    box-shadow: 3px 4px 0px 0px #283593;
+    background: linear-gradient(to bottom, #7986cb 5%, #9fa8da 100%);
+    background-color: #7986cb;
+    border-radius: 18px;
+    border: 1px solid #5c6bc0;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 17px;
+    padding: 8px 20px;
+    margin: 10px auto;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #283593;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #9fa8da 5%, #7986cb 100%);
+    background-color: #9fa8da;
+}
+button:active {
+    position: relative;
+    top: 1px;
+}
+button:focus {
+    outline: none;
+}
+
+.redBtn {
     box-shadow: 3px 4px 0px 0px #8a2a21;
     background: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
     background-color: #c62d1f;
@@ -33,16 +68,10 @@ button {
     text-decoration: none;
     text-shadow: 0px 1px 0px #810e05;
 }
-button:hover {
+
+.redBtn:hover {
     background: linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
     background-color: #f24437;
-}
-button:active {
-    position: relative;
-    top: 1px;
-}
-button:focus {
-    outline: none;
 }
 /* button {
     margin: 10px auto;
@@ -143,4 +172,8 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.bio {
+    width: 500px;
 }
