@@ -10,6 +10,8 @@ const s3 = require("./s3");
 const uidSafe = require("uid-safe");
 const path = require("path");
 const { s3Url } = require("./config");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 
 app.use(compression());
 
@@ -313,6 +315,22 @@ app.get("*", function(req, res) {
     }
 });
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("I'm listening.");
+});
+
+io.on("connection", socket => {
+    console.log(`socket with the id ${socket.id} is now connected`);
+
+    socket.on("disconnect", function() {
+        console.log(`socket with the id ${socket.id} is now disconnected`);
+    });
+
+    socket.on("thanks", function(data) {
+        console.log(data);
+    });
+
+    socket.emit("welcome", {
+        message: "Welome. It is nice to see you"
+    });
 });
