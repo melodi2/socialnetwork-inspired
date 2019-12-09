@@ -24,13 +24,13 @@ export function Friends() {
     return (
         <div>
             {" "}
-            <div>
-                Your Friends:
+            <div className="friendsBox">
+                <h3>Your Friends:</h3>
                 {friends &&
                     friends.map(el => (
                         <div key={el.id}>
+                            <img className="smallPic" src={el.imgurl} />
                             {el.firstname}
-                            <img src={el.imgurl} />
 
                             <button
                                 onClick={e => dispatch(deleteFriend(el.id))}
@@ -39,18 +39,22 @@ export function Friends() {
                             </button>
                         </div>
                     ))}
+
+                <h3>Open Friend Requests:</h3>
+                {friendRequests &&
+                    friendRequests.map(el => (
+                        <div key={el.id}>
+                            <img className="smallPic" src={el.imgurl} />
+                            {el.firstname}
+
+                            <button
+                                onClick={e => dispatch(acceptFriend(el.id))}
+                            >
+                                Accept
+                            </button>
+                        </div>
+                    ))}
             </div>
-            Want to be your Friends:
-            {friendRequests &&
-                friendRequests.map(el => (
-                    <div key={el.id}>
-                        {el.firstname}
-                        <img src={el.imgurl} />
-                        <button onClick={e => dispatch(acceptFriend(el.id))}>
-                            Accept
-                        </button>
-                    </div>
-                ))}
         </div>
     );
 }

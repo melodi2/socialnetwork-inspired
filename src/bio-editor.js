@@ -61,7 +61,7 @@ export default class BioEditor extends React.Component {
         } else {
             return (
                 <div>
-                    <h1>{this.props.bio}</h1>
+                    <p>{this.props.bio}</p>
                     <button onClick={() => this.toggleEditBio()}>
                         {buttonText}
                     </button>

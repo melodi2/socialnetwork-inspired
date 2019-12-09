@@ -63,7 +63,7 @@ export default class App extends React.Component {
             <div>
                 <BrowserRouter>
                     <div>
-                        <div className="headerPic">
+                        <div className="header">
                             <img className="logo" src="/img/logo.png" />
                             <ProfilePic
                                 first={this.state.first}
