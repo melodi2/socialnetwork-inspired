@@ -26,6 +26,7 @@ export function Friends() {
             {" "}
             <div className="friendsBox">
                 <h3>Your Friends:</h3>
+                {friends && friends.length == 0 && <div>No friends</div>}
                 {friends &&
                     friends.map(el => (
                         <div key={el.id}>
@@ -41,6 +42,9 @@ export function Friends() {
                     ))}
 
                 <h3>Open Friend Requests:</h3>
+                {friendRequests && friendRequests.length == 0 && (
+                    <div>No Friend Requests</div>
+                )}
                 {friendRequests &&
                     friendRequests.map(el => (
                         <div key={el.id}>
