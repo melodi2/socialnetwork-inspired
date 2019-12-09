@@ -6,7 +6,8 @@ export default class BioEditor extends React.Component {
         super(props);
         this.state = {
             editingMode: false,
-            buttonText: "Edit your Bio..."
+            buttonText: "Edit your Bio...",
+            bio: this.props.bio || ""
         };
     }
 
@@ -30,7 +31,6 @@ export default class BioEditor extends React.Component {
                 bio: this.state.bio
             })
             .then(({ data }) => {
-                console.log("inside post axios data", data);
                 this.setState({
                     bio: data.bio
                 });
@@ -49,10 +49,13 @@ export default class BioEditor extends React.Component {
             : (buttonText = "Add your bio");
         if (this.state.editingMode) {
             return (
-                <div>
+                <div className="form">
                     <textarea
+                        rows="3"
+                        maxLength="150"
                         name="bio"
                         defaultValue={this.props.bio}
+                        placeholder="max. 150 characters"
                         onChange={e => this.handleChange(e.target)}
                     />
                     <button onClick={() => this.uploadBio()}>Save</button>
@@ -60,8 +63,8 @@ export default class BioEditor extends React.Component {
             );
         } else {
             return (
-                <div>
-                    <p>{this.props.bio}</p>
+                <div className="form">
+                    <p className="bio">{this.props.bio}</p>
                     <button onClick={() => this.toggleEditBio()}>
                         {buttonText}
                     </button>
