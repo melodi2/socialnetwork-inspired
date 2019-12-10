@@ -97,3 +97,16 @@ module.exports.checkFriends = function checkFriends(id) {
         [id]
     );
 };
+
+module.exports.getMessages = function getMessages() {
+    return db.query(
+        "SELECT *, messages.id AS messages_id FROM messages LEFT JOIN users ON (sender_id = users.id) ORDER BY messages.id DESC LIMIT 10;"
+    );
+};
+
+module.exports.addMessage = function addMessage(id, msg) {
+    return db.query(
+        "INSERT INTO messages (sender_id, msg) VALUES ($1, $2) RETURNING id;",
+        [id, msg]
+    );
+};

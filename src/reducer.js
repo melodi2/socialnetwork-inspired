@@ -34,5 +34,22 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "ADD_MESSAGE") {
+        console.log("action.message", action.message);
+        state = {
+            ...state,
+            messages: [...state.messages, action.message]
+        };
+    }
+
+    if (action.type == "GET_MESSAGES") {
+        console.log("action.messages", action.messages);
+
+        state = {
+            ...state,
+            messages: action.messages
+        };
+    }
+
     return state;
 }

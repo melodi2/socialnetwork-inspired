@@ -330,20 +330,35 @@ io.on("connection", function(socket) {
     }
 
     const userId = socket.request.session.userId;
-    socket.on("My chat message", msg => {
+    socket.on("new chat message", msg => {
         console.log("msg on the server", msg);
         console.log("userId", userId);
+        db.addMessage(userId, msg)
+            .then(data => {
+                db.getInfo(userId).then(({ rows }) => {
+                    rows[0].messages_id = data.rows[0].id;
+                    rows[0].msg = msg;
+                    rows[0].password = "";
+                    rows[0].sender_id = userId;
+                    console.log("rows[0] with message", rows[0]);
+                    socket.emit("addMessage", rows[0]);
+                });
+            })
+            .catch(err => console.log(err));
         //we need to look up info about the user
         //then add it to the database
         //then emit this object out to everyone
-        socket.emit("to everyone", msg);
     });
+    db.getMessages()
+        .then(({ rows }) => {
+            console.log("last ten messages from backend", rows);
+            console.log(
+                "last ten messages from backend, reverse",
+                rows.reverse()
+            );
+            io.sockets.emit("getMessages", rows.reverse());
+        })
+        .catch(err => console.log(err));
 });
-//chat message stuff..
-//make a db query to get the last 10 chat chatMessages
-//     db.getLastThenChatMessages().then(data => {
-//         //now we need to emit the message to the front end...
-//         io.socket.emit("chatMessages", data.rows.reverse());
-//     });
-//     /* ... */
-// });
+
+//

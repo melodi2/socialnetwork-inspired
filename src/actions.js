@@ -25,3 +25,18 @@ export async function deleteFriend(id) {
         id
     };
 }
+
+export async function addMessage(msg) {
+    return {
+        type: "ADD_MESSAGE",
+        message: msg
+    };
+}
+
+export async function getMessages(msgs) {
+    console.log("msgs in action", msgs);
+    return {
+        type: "GET_MESSAGES",
+        messages: msgs
+    };
+}
