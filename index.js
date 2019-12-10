@@ -10,6 +10,7 @@ const s3 = require("./s3");
 const uidSafe = require("uid-safe");
 const path = require("path");
 const { s3Url } = require("./config");
+
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:8080" });
 
@@ -35,12 +36,15 @@ const uploader = multer({
 app.use(express.static("./public"));
 app.use(express.json());
 
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(csurf());
 
@@ -319,18 +323,27 @@ server.listen(8080, function() {
     console.log("I'm listening.");
 });
 
-io.on("connection", socket => {
+io.on("connection", function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
 
-    socket.on("disconnect", function() {
-        console.log(`socket with the id ${socket.id} is now disconnected`);
-    });
-
-    socket.on("thanks", function(data) {
-        console.log(data);
-    });
-
-    socket.emit("welcome", {
-        message: "Welome. It is nice to see you"
+    const userId = socket.request.session.userId;
+    socket.on("My chat message", msg => {
+        console.log("msg on the server", msg);
+        console.log("userId", userId);
+        //we need to look up info about the user
+        //then add it to the database
+        //then emit this object out to everyone
+        socket.emit("to everyone", msg);
     });
 });
+//chat message stuff..
+//make a db query to get the last 10 chat chatMessages
+//     db.getLastThenChatMessages().then(data => {
+//         //now we need to emit the message to the front end...
+//         io.socket.emit("chatMessages", data.rows.reverse());
+//     });
+//     /* ... */
+// });

@@ -8,6 +8,8 @@ import { OtherProfile } from "./otherprofile";
 import { FindPeople } from "./find-people";
 import { Friends } from "./friends";
 import { Link } from "react-router-dom";
+import { Chat } from "./chat";
+// import { ChatHooks } from "./chat-hooks";
 
 export default class App extends React.Component {
     constructor() {
@@ -102,8 +104,13 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
-                        <Route path="/findpeople" component={FindPeople} />
-                        <Route path="/friends" component={Friends} />
+                        <Route
+                            exact
+                            path="/findpeople"
+                            component={FindPeople}
+                        />
+                        <Route exact path="/friends" component={Friends} />
+                        <Route exact path="/chat" component={Chat} />
                     </div>
                 </BrowserRouter>
 

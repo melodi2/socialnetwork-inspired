@@ -161,13 +161,12 @@ button:hover {
 
 .uploadModal {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    right: 50%;
     transform: translate(50%, 50%);
     z-index: 2;
     width: 70%;
-    height: 20%;
-    background-color: lightblue;
+    background-color: lightgrey;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -176,4 +175,9 @@ button:hover {
 
 .bio {
     width: 500px;
+}
+
+.chat-container {
+    height: 300px;
+    overflow-y: scroll;
 }
