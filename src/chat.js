@@ -17,8 +17,6 @@ export function Chat() {
     }, []);
 
     const keyCheck = e => {
-        // console.log("e.target.value", e.target.value);
-        // console.log("e.key", e.key);
         if (e.key === "Enter") {
             console.log("enter was hit");
             socket.emit("new chat message", e.target.value);

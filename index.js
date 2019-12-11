@@ -323,8 +323,17 @@ server.listen(8080, function() {
     console.log("I'm listening.");
 });
 
+const onlineUsers = {};
+
 io.on("connection", function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
+
+    onlineUsers[socket.id] = userId;
+
+    socket.on("disconnect", () => {
+        delete onlineUsers[socket.id];
+    });
+
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
@@ -356,7 +365,7 @@ io.on("connection", function(socket) {
                 "last ten messages from backend, reverse",
                 rows.reverse()
             );
-            io.sockets.emit("getMessages", rows.reverse());
+            io.sockets.emit("getMessages", rows);
         })
         .catch(err => console.log(err));
 });

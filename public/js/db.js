@@ -110,3 +110,5 @@ module.exports.addMessage = function addMessage(id, msg) {
         [id, msg]
     );
 };
+
+//SELECT * FROM users WHERE id = ANY($1)
