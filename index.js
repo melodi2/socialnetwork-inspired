@@ -111,9 +111,9 @@ app.get("/login", function(req, res) {
 });
 
 app.post("/login", (req, res) => {
-    console.log("post login server");
     let { password, email } = req.body;
-    if (password != "" && email != "") {
+    console.log("not empty pw and email", req.body);
+    if (password && password != "" && email && email != "") {
         db.getUser(email)
             .then(({ rows }) => {
                 bc.compare(password, rows[0].password)
@@ -323,20 +323,17 @@ app.get("/friends.json", (req, res) => {
 });
 
 app.post("/deleteAccount.json", (req, res) => {
-    db.deleteAccount(req.session.userId)
-        .then(() => {
-            db.getOldFilename(req.session.userId)
-                .then(({ rows }) => {
-                    const filename = rows[0].filename;
-                    console.log(
-                        "delete old filename in upload new image",
-                        filename
-                    );
-                    s3.delete(filename);
+    db.getOldFilename(req.session.userId)
+        .then(({ rows }) => {
+            const filename = rows[0].filename;
+            console.log("delete old filename in upload new image", filename);
+            s3.delete(filename);
+            db.deleteAccount(req.session.userId)
+                .then(() => {
+                    req.session = null;
+                    res.redirect("/register");
                 })
                 .catch(err => console.log(err));
-            req.session = null;
-            res.redirect("/register");
         })
         .catch(err => console.log(err));
 });
@@ -359,18 +356,20 @@ const onlineUsers = {};
 
 io.on("connection", function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
+    const userId = socket.request.session.userId;
 
-    // onlineUsers[socket.id] = userId;
+    onlineUsers[socket.id] = userId;
 
-    // socket.on("disconnect", () => {
-    //     delete onlineUsers[socket.id];
-    // });
+    socket.on("disconnect", () => {
+        delete onlineUsers[socket.id];
+    });
+
+    console.log("online users", onlineUsers);
 
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
 
-    const userId = socket.request.session.userId;
     socket.on("new chat message", msg => {
         console.log("msg on the server", msg);
         console.log("userId", userId);
@@ -386,17 +385,9 @@ io.on("connection", function(socket) {
                 });
             })
             .catch(err => console.log(err));
-        //we need to look up info about the user
-        //then add it to the database
-        //then emit this object out to everyone
     });
     db.getMessages()
         .then(({ rows }) => {
-            console.log("last ten messages from backend", rows);
-            console.log(
-                "last ten messages from backend, reverse",
-                rows.reverse()
-            );
             io.sockets.emit("getMessages", rows);
         })
         .catch(err => console.log(err));
