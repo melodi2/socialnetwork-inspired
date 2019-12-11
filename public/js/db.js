@@ -111,4 +111,8 @@ module.exports.addMessage = function addMessage(id, msg) {
     );
 };
 
+module.exports.deleteAccount = function deleteAccount(id) {
+    return db.query("DELETE FROM users WHERE id = $1", [id]);
+};
+
 //SELECT * FROM users WHERE id = ANY($1)

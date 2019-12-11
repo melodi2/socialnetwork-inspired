@@ -14,11 +14,10 @@ export function Chat() {
         // console.log("scrollHeight", elemRef.current.scrollHeight);
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, []);
+    });
 
     const keyCheck = e => {
         if (e.key === "Enter") {
-            console.log("enter was hit");
             socket.emit("new chat message", e.target.value);
             e.target.value = "";
         }

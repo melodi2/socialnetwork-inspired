@@ -1,6 +1,7 @@
 import React from "react";
 import ProfilePic from "./profile-pic";
 import BioEditor from "./bio-editor";
+import { Link } from "react-router-dom";
 
 export default function Profile(props) {
     console.log("props in profile", props);
@@ -18,6 +19,7 @@ export default function Profile(props) {
             />
 
             <BioEditor updateBio={props.updateBio} bio={props.bio} />
+            <Link to="/delete">Delete your account</Link>
         </div>
     );
 }

@@ -311,6 +311,17 @@ app.get("/friends.json", (req, res) => {
         .catch(err => console.log(err));
 });
 
+app.post("/deleteAccount.json", (req, res) => {
+    db.deleteAccount(req.session.userId)
+        .then(() => {
+            req.session = null;
+            res.redirect("/register");
+        })
+        .catch(err => console.log(err));
+});
+
+app.post("/logout", (req, res) => {});
+
 app.get("*", function(req, res) {
     if (!req.session.userId) {
         res.redirect("/register");
@@ -328,11 +339,11 @@ const onlineUsers = {};
 io.on("connection", function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
 
-    onlineUsers[socket.id] = userId;
+    // onlineUsers[socket.id] = userId;
 
-    socket.on("disconnect", () => {
-        delete onlineUsers[socket.id];
-    });
+    // socket.on("disconnect", () => {
+    //     delete onlineUsers[socket.id];
+    // });
 
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
@@ -350,7 +361,7 @@ io.on("connection", function(socket) {
                     rows[0].password = "";
                     rows[0].sender_id = userId;
                     console.log("rows[0] with message", rows[0]);
-                    socket.emit("addMessage", rows[0]);
+                    io.sockets.emit("addMessage", rows[0]);
                 });
             })
             .catch(err => console.log(err));

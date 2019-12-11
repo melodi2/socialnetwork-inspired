@@ -9,6 +9,7 @@ import { FindPeople } from "./find-people";
 import { Friends } from "./friends";
 import { Link } from "react-router-dom";
 import { Chat } from "./chat";
+import { Delete } from "./delete";
 // import { ChatHooks } from "./chat-hooks";
 
 export default class App extends React.Component {
@@ -68,6 +69,7 @@ export default class App extends React.Component {
                     <div>
                         <div className="header">
                             <img className="logo" src="/img/logo.png" />
+                            <Link to="/chat">Chat</Link>
                             <Link to="/friends">Friends</Link>
                             <Link to="/findpeople">Find People</Link>
                             <Link to="/">Profile</Link>
@@ -111,6 +113,7 @@ export default class App extends React.Component {
                         />
                         <Route exact path="/friends" component={Friends} />
                         <Route exact path="/chat" component={Chat} />
+                        <Route exact path="/delete" component={Delete} />
                     </div>
                 </BrowserRouter>
 

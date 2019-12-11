@@ -13,15 +13,15 @@ CREATE TABLE users(
 DROP TABLE IF EXISTS friendships CASCADE;
 CREATE TABLE friendships(
     id SERIAL PRIMARY KEY,
-    receiver_id INT NOT NULL REFERENCES users(id),
-    sender_id INT NOT NULL REFERENCES users(id),
+    receiver_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    sender_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     accepted BOOLEAN DEFAULT FALSE
 );
 
 DROP TABLE IF EXISTS messages CASCADE;
 CREATE TABLE messages(
     id SERIAL PRIMARY KEY,
-    sender_id INT NOT NULL REFERENCES users(id),
+    sender_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     msg TEXT,
     posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
