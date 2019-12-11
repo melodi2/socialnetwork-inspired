@@ -185,11 +185,22 @@ app.get("/user/:id.json", (req, res) => {
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const imageUrl = `${s3Url}${req.file.filename}`;
-    db.addProfilePic(req.session.userId, imageUrl)
-        .then(() => {
-            res.json({
-                imgurl: imageUrl
-            });
+    db.getOldFilename(req.session.userId)
+        .then(({ rows }) => {
+            const filename = rows[0].filename;
+            console.log("delete old filename in upload new image", filename);
+            s3.delete(filename);
+
+            db.addProfilePic(req.session.userId, imageUrl, req.file.filename)
+                .then(() => {
+                    console.log("adding new profilepic worked");
+                    res.json({
+                        imgurl: imageUrl
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         })
         .catch(err => {
             console.log(err);
@@ -314,6 +325,16 @@ app.get("/friends.json", (req, res) => {
 app.post("/deleteAccount.json", (req, res) => {
     db.deleteAccount(req.session.userId)
         .then(() => {
+            db.getOldFilename(req.session.userId)
+                .then(({ rows }) => {
+                    const filename = rows[0].filename;
+                    console.log(
+                        "delete old filename in upload new image",
+                        filename
+                    );
+                    s3.delete(filename);
+                })
+                .catch(err => console.log(err));
             req.session = null;
             res.redirect("/register");
         })

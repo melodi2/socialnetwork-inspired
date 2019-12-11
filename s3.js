@@ -40,3 +40,20 @@ exports.upload = function(req, res, next) {
             res.sendStatus(500);
         });
 };
+
+exports.delete = function(filename) {
+    return s3
+        .deleteObject({
+            Bucket: "spicedling",
+            Key: filename
+        })
+        .promise()
+        .then(data => {
+            //worked
+            console.log("delete worked", data);
+        })
+        .catch(err => {
+            console.log(err);
+            //did not work
+        });
+};

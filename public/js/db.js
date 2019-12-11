@@ -32,8 +32,16 @@ module.exports.getInfo = function getInfo(id) {
     return db.query("SELECT * from users WHERE id=$1", [id]);
 };
 
-module.exports.addProfilePic = function addProfilePic(id, imageUrl) {
-    return db.query("UPDATE users SET imgurl=$2 WHERE id=$1", [id, imageUrl]);
+module.exports.addProfilePic = function addProfilePic(id, imageUrl, filename) {
+    return db.query("UPDATE users SET imgurl=$2, filename=$3 WHERE id=$1", [
+        id,
+        imageUrl,
+        filename
+    ]);
+};
+
+module.exports.getOldFilename = function getOldFilename(id) {
+    return db.query("SELECT filename FROM users WHERE id=$1", [id]);
 };
 
 module.exports.addBio = function addBio(id, bio) {
