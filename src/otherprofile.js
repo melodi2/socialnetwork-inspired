@@ -36,7 +36,7 @@ export class OtherProfile extends React.Component {
             return <h1>This user does not exist!</h1>;
         }
         return (
-            <div className="form">
+            <div className="profilePage">
                 <h1>
                     {this.state.first} {this.state.last}
                 </h1>
@@ -44,8 +44,8 @@ export class OtherProfile extends React.Component {
                     src={this.state.imgurl}
                     alt={this.state.first + " " + this.state.last}
                 />
-                <Friendshipbutton otherId={this.props.match.params.id} />
                 <p>{this.state.bio}</p>
+                <Friendshipbutton otherId={this.props.match.params.id} />
             </div>
         );
     }
