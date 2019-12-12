@@ -37,16 +37,18 @@ export class OtherProfile extends React.Component {
         }
         return (
             <div className="profilePage">
-                <h1>
-                    {this.state.first} {this.state.last}
-                </h1>
-                <img
-                    className="bigProfilePic"
-                    src={this.state.imgurl}
-                    alt={this.state.first + " " + this.state.last}
-                />
-                <p className="bio">{this.state.bio}</p>
-                <Friendshipbutton otherId={this.props.match.params.id} />
+                <div className="profile">
+                    <h1>
+                        {this.state.first} {this.state.last}
+                    </h1>
+                    <img
+                        className="bigProfilePic"
+                        src={this.state.imgurl}
+                        alt={this.state.first + " " + this.state.last}
+                    />
+                    <p className="bio">{this.state.bio}</p>
+                    <Friendshipbutton otherId={this.props.match.params.id} />
+                </div>
             </div>
         );
     }
