@@ -195,11 +195,15 @@ input:focus {
 }
 
 .header a:hover {
-    color: lightblue;
+    color: #6875bd;
 }
 
 /* ///////////////////BOX STYLINGS//////////////// */
-
+.upload-container {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
 .uploadModal {
     position: absolute;
     top: 20%;
@@ -208,7 +212,7 @@ input:focus {
     z-index: 2;
     min-width: 400px;
     padding: 20px;
-    background-color: lightgrey;
+    background-color: aliceblue;
     border-radius: 10px;
     border: black;
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -342,6 +346,7 @@ input:focus {
 .friends-container {
     text-align: center;
     background-color: #fff5f59c;
+    padding-top: 10px;
 }
 .friends {
     display: grid;

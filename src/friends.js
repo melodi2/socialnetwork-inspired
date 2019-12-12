@@ -26,7 +26,7 @@ export function Friends() {
         <div>
             {" "}
             <div className="friends-container">
-                <h3>Your Friends:</h3>
+                <h2>Your Friends:</h2>
                 <div className="friends">
                     {friends && friends.length == 0 && <div>No friends</div>}
                     {friends &&
@@ -47,7 +47,7 @@ export function Friends() {
                             </div>
                         ))}
                 </div>
-                <h3>Open Friend Requests:</h3>
+                <h2>Open Friend Requests:</h2>
                 <div className="friends">
                     {friendRequests && friendRequests.length == 0 && (
                         <div>No Friend Requests</div>

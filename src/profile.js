@@ -19,9 +19,11 @@ export default function Profile(props) {
             />
 
             <BioEditor updateBio={props.updateBio} bio={props.bio} />
-            <Link to="/delete" id="delete">
-                Delete your account
-            </Link>
+            <h4>
+                <Link to="/delete" id="delete">
+                    Delete your account
+                </Link>
+            </h4>
         </div>
     );
 }
