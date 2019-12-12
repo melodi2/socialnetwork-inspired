@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 export function FindPeople() {
     const [users, setUsers] = useState([]);
@@ -27,25 +28,41 @@ export function FindPeople() {
     console.log("user", users);
     if (recentUsers) {
         return (
-            <div className="form">
+            <div className="find-people">
                 <h3>See who just joined!</h3>
-                {recentUsers.map(u => (
-                    <div key={u.id}>
-                        <img className="smallPic" src={u.imgurl} />
-                        {u.firstname}
-                    </div>
-                ))}
+
+                <div className="people-container">
+                    {recentUsers.map(u => (
+                        <div key={u.id}>
+                            <h4>
+                                {u.firstname} {u.lastname}
+                            </h4>
+                            <Link to={`/user/${u.id}`}>
+                                <img className="smallPic" src={u.imgurl} />
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+
                 <h3>Do you want to find someone particular?</h3>
                 <input
                     onChange={e => setInput(e.target.value)}
                     defaultValue={input}
+                    placeholder="Type a name"
                 />
-                {users.map(u => (
-                    <div key={u.id}>
-                        {u.firstname}
-                        <img className="smallPic" src={u.imgurl} />
-                    </div>
-                ))}
+
+                <div className="people-container">
+                    {users.map(u => (
+                        <div key={u.id}>
+                            <h4>
+                                {u.firstname} {u.lastname}
+                            </h4>
+                            <Link to={`/user/${u.id}`}>
+                                <img className="smallPic" src={u.imgurl} />
+                            </Link>
+                        </div>
+                    ))}
+                </div>
             </div>
         );
     } else {

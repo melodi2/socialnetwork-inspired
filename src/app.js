@@ -73,6 +73,7 @@ export default class App extends React.Component {
                             <Link to="/friends">Friends</Link>
                             <Link to="/findpeople">Find People</Link>
                             <Link to="/">Profile</Link>
+                            <a href="/logout">Log out</a>
                             <ProfilePic
                                 first={this.state.first}
                                 last={this.state.last}

@@ -22,9 +22,6 @@ export default function Profile(props) {
             <Link to="/delete" id="delete">
                 Delete your account
             </Link>
-            <a href="/logout">
-                <button>Log out</button>
-            </a>
         </div>
     );
 }
