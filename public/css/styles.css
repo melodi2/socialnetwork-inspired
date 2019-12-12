@@ -14,6 +14,10 @@ h1 {
     text-align: center;
 }
 
+h3 {
+    text-align: center;
+}
+
 input {
     margin: 10px auto;
     font-size: 15px;
@@ -144,8 +148,8 @@ input:focus {
 }
 
 .bigProfilePic {
-    width: 300px;
-    height: 500px;
+    width: 180px;
+    height: 250px;
     object-fit: cover;
     object-position: center;
 }
@@ -160,6 +164,7 @@ input:focus {
 .bigLogo {
     width: 200px;
     height: 100px;
+    border-radius: 82% 18% 69% 31% / 23% 72% 28% 77%;
     object-fit: fill;
     margin: 10px auto;
 }
@@ -167,6 +172,8 @@ input:focus {
 .logo {
     width: 200px;
     height: 100px;
+    border-radius: 82% 18% 69% 31% / 23% 72% 28% 77%;
+    border-radius: 2px black solid;
     object-fit: fill;
 }
 
@@ -176,29 +183,22 @@ input:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: grey;
+    background-color: white;
 }
 
 .header a {
     text-decoration: none;
-    color: white;
+    color: black;
     font-weight: bold;
     min-width: 90px;
     text-align: center;
 }
 
 .header a:hover {
-    color: #add8e6;
+    color: lightblue;
 }
 
 /* ///////////////////BOX STYLINGS//////////////// */
-
-.friendsBox {
-    margin: 20px;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-}
 
 .uploadModal {
     position: absolute;
@@ -241,12 +241,18 @@ input:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url("/img/ashkan-forouzani-bluechat.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.chat h1 {
+    color: white;
 }
 
 .chat-container {
     height: 500px;
     overflow-y: scroll;
-    background-color: grey;
+    background-color: #fff5f59c;
     margin-bottom: 10px;
 }
 
@@ -295,6 +301,7 @@ input:focus {
     /* display: flex;
     flex-direction: column;
     align-items: center; */
+    background-color: #fff5f59c;
 }
 
 .people-container {
@@ -305,10 +312,6 @@ input:focus {
     grid-gap: 2rem;
     grid-template-rows: auto;
     margin-bottom: 20px;
-}
-.people-container div {
-    /* grid-row: 2/3;
-    align-self: end; */
 }
 
 .find-people input {
@@ -335,6 +338,30 @@ input:focus {
     background-size: cover;
 }
 
+/* //////////////////////////////FRIENDS////////////////////////////// */
+.friends-container {
+    text-align: center;
+    background-color: #fff5f59c;
+}
+.friends {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 2rem;
+    grid-template-rows: auto;
+    margin-bottom: 20px;
+}
+.friends div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .friendsBox {
+    margin: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+} */
 /* //////////////////////////////LINKS////////////////////////////// */
 #delete {
     text-decoration: none;

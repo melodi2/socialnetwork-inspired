@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 export default function Profile(props) {
     console.log("props in profile", props);
     return (
-        <div className="form">
-            <h2>
+        <div className="profilePage">
+            <h1>
                 {props.first} {props.last}
-            </h2>
+            </h1>
             <ProfilePic
                 first={props.first}
                 last={props.last}

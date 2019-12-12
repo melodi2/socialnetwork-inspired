@@ -41,6 +41,7 @@ export class OtherProfile extends React.Component {
                     {this.state.first} {this.state.last}
                 </h1>
                 <img
+                    className="bigProfilePic"
                     src={this.state.imgurl}
                     alt={this.state.first + " " + this.state.last}
                 />

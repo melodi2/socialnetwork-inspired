@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { receiveFriends, acceptFriend, deleteFriend } from "./actions";
+import { Link } from "react-router-dom";
 
 export function Friends() {
     const dispatch = useDispatch();
@@ -24,42 +25,52 @@ export function Friends() {
     return (
         <div>
             {" "}
-            <div className="friendsBox">
+            <div className="friends-container">
                 <h3>Your Friends:</h3>
-                {friends && friends.length == 0 && <div>No friends</div>}
-                {friends &&
-                    friends.map(el => (
-                        <div key={el.id}>
-                            <img className="smallPic" src={el.imgurl} />
-                            {el.firstname}
-
-                            <button
-                                className="redBtn"
-                                onClick={e => dispatch(deleteFriend(el.id))}
-                            >
-                                Unfriend
-                            </button>
-                        </div>
-                    ))}
-
+                <div className="friends">
+                    {friends && friends.length == 0 && <div>No friends</div>}
+                    {friends &&
+                        friends.map(el => (
+                            <div key={el.id}>
+                                <h4>
+                                    {el.firstname} {el.lastname}
+                                </h4>
+                                <Link to={`/user/${el.id}`}>
+                                    <img className="smallPic" src={el.imgurl} />
+                                </Link>
+                                <button
+                                    className="redBtn"
+                                    onClick={e => dispatch(deleteFriend(el.id))}
+                                >
+                                    Unfriend
+                                </button>
+                            </div>
+                        ))}
+                </div>
                 <h3>Open Friend Requests:</h3>
-                {friendRequests && friendRequests.length == 0 && (
-                    <div>No Friend Requests</div>
-                )}
-                {friendRequests &&
-                    friendRequests.map(el => (
-                        <div key={el.id}>
-                            <img className="smallPic" src={el.imgurl} />
-                            {el.firstname}
+                <div className="friends">
+                    {friendRequests && friendRequests.length == 0 && (
+                        <div>No Friend Requests</div>
+                    )}
+                    {friendRequests &&
+                        friendRequests.map(el => (
+                            <div key={el.id}>
+                                <h4>
+                                    {el.firstname} {el.lastname}
+                                </h4>
+                                <Link to={`/user/${el.id}`}>
+                                    <img className="smallPic" src={el.imgurl} />
+                                </Link>
 
-                            <button
-                                className="greenBtn"
-                                onClick={e => dispatch(acceptFriend(el.id))}
-                            >
-                                Accept
-                            </button>
-                        </div>
-                    ))}
+                                <button
+                                    className="greenBtn"
+                                    onClick={e => dispatch(acceptFriend(el.id))}
+                                >
+                                    Accept
+                                </button>
+                            </div>
+                        ))}
+                </div>
             </div>
         </div>
     );

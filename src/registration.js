@@ -48,27 +48,27 @@ export default class Registration extends React.Component {
                 <div className="form">
                     <input
                         name="first"
-                        placeholder="firstname"
+                        placeholder="First name"
                         onChange={e => this.handleChange(e.target)}
                     />
                     <input
                         name="last"
-                        placeholder="lastname"
+                        placeholder="Surname"
                         onChange={e => this.handleChange(e.target)}
                     />
                     <input
                         name="email"
-                        placeholder="email"
+                        placeholder="Email"
                         onChange={e => this.handleChange(e.target)}
                     />
                     <input
                         name="password"
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         onChange={e => this.handleChange(e.target)}
                     />
                     <button onClick={() => this.submit()}>Sign Up</button>
-                    <Link to="/login">Take me to login</Link>
+                    <Link to="/login"> Already a member? Log in here</Link>
                 </div>
             </div>
         );

@@ -68,7 +68,7 @@ export default class App extends React.Component {
                 <BrowserRouter>
                     <div>
                         <div className="header">
-                            <img className="logo" src="/img/logo.png" />
+                            <img className="logo" src="/img/inspired.png" />
                             <Link to="/chat">Chat</Link>
                             <Link to="/friends">Friends</Link>
                             <Link to="/findpeople">Find People</Link>

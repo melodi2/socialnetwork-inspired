@@ -11,9 +11,10 @@ export default class Welcome extends React.Component {
     render() {
         return (
             <div>
-                <h1>WELCOME</h1>
+                <h1>WELCOME TO INSPIRED</h1>
+                <h3>A place for makers and creators to find inspiration.</h3>
                 <div className="center">
-                    <img className="bigLogo" src="/img/logo.png" />
+                    <img className="bigLogo" src="/img/inspired.png" />
                 </div>
                 <HashRouter>
                     <div>
