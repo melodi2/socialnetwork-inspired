@@ -27,26 +27,25 @@ export function Chat() {
         <div className="chat">
             <h1>Chat Room...</h1>
             <div className="chat-container" ref={elemRef}>
-                <p>FIRST Chat message will go here...</p>
-                <p>Chat message will go here...</p>
-                <p>Chat message will go here...</p>
-                <p>Chat message will go here...</p>
-                <p>Chat message will go here...</p>
-                <p>Chat message will go here...</p>
-                <p>Chat message will go here...</p>
-                <p>Chat message will go here...</p>
-                <p>Chat message will go here...</p>
-                <p>LAST Chat message will go here...</p>
                 {chatMessages &&
                     chatMessages.map(el => (
-                        <p key={el.messages_id}>
-                            <img className="smallPic" src={el.imgurl} />
-                            {el.firstname}
-                            {el.msg}
+                        <p id="chatMessage" key={el.messages_id}>
+                            <p id="leftCorner">
+                                <h4>{el.firstname}</h4>
+                                <img className="smallPic" src={el.imgurl} />
+                            </p>
+
+                            <p id="chatText">
+                                <p>{el.msg}</p>
+                                <p id="postedTimeStamp">{el.posted_at}</p>
+                            </p>
                         </p>
                     ))}
             </div>
-            <textarea placeholder="Add a Comment" onKeyUp={keyCheck}></textarea>
+            <textarea
+                placeholder="Type a message"
+                onKeyUp={keyCheck}
+            ></textarea>
         </div>
     );
 }

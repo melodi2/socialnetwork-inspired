@@ -24,7 +24,9 @@ export class Delete extends React.Component {
             <div className="deleteModal">
                 <h3>Are you sure, you want to delete your Account?</h3>
                 <h1> You cannot undo this action!</h1>
-                <button onClick={() => this.deleteAccount()}>DELETE</button>
+                <button onClick={() => this.deleteAccount()} className="redBtn">
+                    DELETE
+                </button>
                 <Link to="/">Go back</Link>
             </div>
         );

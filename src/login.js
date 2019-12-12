@@ -15,7 +15,7 @@ export default class Login extends React.Component {
             })
             .then(({ data }) => {
                 if (data.success) {
-                    location.replace("/");
+                    location.replace("/register");
                 } else {
                     this.setState({
                         error: true

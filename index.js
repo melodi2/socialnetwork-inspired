@@ -338,7 +338,10 @@ app.post("/deleteAccount.json", (req, res) => {
         .catch(err => console.log(err));
 });
 
-app.post("/logout", (req, res) => {});
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/register");
+});
 
 app.get("*", function(req, res) {
     if (!req.session.userId) {
@@ -367,6 +370,7 @@ io.on("connection", function(socket) {
     console.log("online users", onlineUsers);
 
     if (!socket.request.session.userId) {
+        console.log(`socket with the id ${socket.id} is now disconnected`);
         return socket.disconnect(true);
     }
 
@@ -388,7 +392,7 @@ io.on("connection", function(socket) {
     });
     db.getMessages()
         .then(({ rows }) => {
-            io.sockets.emit("getMessages", rows);
+            io.sockets.emit("getMessages", rows.reverse());
         })
         .catch(err => console.log(err));
 });
