@@ -45,7 +45,7 @@ export class OtherProfile extends React.Component {
                     src={this.state.imgurl}
                     alt={this.state.first + " " + this.state.last}
                 />
-                <p>{this.state.bio}</p>
+                <p className="bio">{this.state.bio}</p>
                 <Friendshipbutton otherId={this.props.match.params.id} />
             </div>
         );

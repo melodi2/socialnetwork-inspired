@@ -115,12 +115,11 @@ export default class App extends React.Component {
                         <Route exact path="/friends" component={Friends} />
                         <Route exact path="/chat" component={Chat} />
                         <Route exact path="/delete" component={Delete} />
+                        {this.state.uploaderIsVisible && (
+                            <Uploader updateImage={this.updateImage} />
+                        )}
                     </div>
                 </BrowserRouter>
-
-                {this.state.uploaderIsVisible && (
-                    <Uploader updateImage={this.updateImage} />
-                )}
             </div>
         );
     }

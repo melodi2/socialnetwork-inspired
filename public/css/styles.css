@@ -200,16 +200,18 @@ input:focus {
 
 /* ///////////////////BOX STYLINGS//////////////// */
 .upload-container {
-    background-color: black;
+    background-color: #0000007d;
     height: 100%;
     width: 100%;
+    position: absolute;
+    z-index: 2;
 }
 .uploadModal {
     position: absolute;
     top: 20%;
     right: 50%;
     transform: translate(50%, 50%);
-    z-index: 2;
+    z-index: 3;
     min-width: 400px;
     padding: 20px;
     background-color: aliceblue;
@@ -301,6 +303,8 @@ input:focus {
 /* ////////////////////////////FindPeople List//////////////////// */
 
 .find-people {
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-align: center;
     /* display: flex;
     flex-direction: column;
@@ -315,7 +319,7 @@ input:focus {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 2rem;
     grid-template-rows: auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .find-people input {
@@ -347,13 +351,14 @@ input:focus {
     text-align: center;
     background-color: #fff5f59c;
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 .friends {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 2rem;
     grid-template-rows: auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 .friends div {
     display: flex;
