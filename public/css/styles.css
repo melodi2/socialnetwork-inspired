@@ -309,6 +309,8 @@ input:focus {
 /* ////////////////////////////FindPeople List//////////////////// */
 
 .find-people {
+    position: absolute;
+    width: -webkit-fill-available;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
@@ -370,6 +372,8 @@ background-size: cover; */
 
 /* //////////////////////////////FRIENDS////////////////////////////// */
 .friends-container {
+    position: absolute;
+    width: -webkit-fill-available;
     text-align: center;
     background-color: #fff5f59c;
     padding-top: 10px;
